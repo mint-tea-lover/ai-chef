@@ -1,0 +1,28 @@
+main {
+  padding: 2rem;
+}
+
+.ingredient-form {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.ingredient-inp,
+.ingredient-add-btn {
+  padding: 10px;
+  height: auto;
+  border-radius: 5px;
+  border: none;
+}
+
+.ingredient-inp {
+  flex: 1 1 300px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.185);
+}
+
+.ingredient-add-btn {
+  background-color: black;
+  color: white;
+}
