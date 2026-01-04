@@ -2,24 +2,21 @@ import "./Main.css";
 import React from "react";
 
 export default function Main() {
-  const [ingredients, setIngredients] = React.useState([
-    "Chicken",
-    "Tomatoes",
-    "Oregano",
-  ]);
+  const [ingredients, setIngredients] = React.useState([]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+  function addIngredient(formData) {
     const newIngredient = formData.get("ingredient");
-    if (!ingredients.includes(newIngredient)) {
-      setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
-    }
-    event.currentTarget.reset();
+    setIngredients((prevIngredients) => {
+      if (prevIngredients.includes(newIngredient)) {
+        return prevIngredients;
+      }
+      return [...prevIngredients, newIngredient];
+    });
   }
+
   return (
     <main>
-      <form className="ingredient-form" onSubmit={handleSubmit}>
+      <form className="ingredient-form" action={addIngredient}>
         <input
           className="ingredient-inp"
           aria-label="Add ingredient"
