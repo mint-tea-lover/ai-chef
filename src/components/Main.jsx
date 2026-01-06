@@ -1,23 +1,49 @@
 import "./Main.css";
 import React from "react";
+import Recipe from "./Recipe";
+import IngredientsList from "./IngredientsList";
+
+function RecipeCTA({ minReached, toggleRecipe }) {
+  return (
+    <div className="get-recipe-container">
+      <div>
+        <h3>{minReached ? "Ready for a recipe?" : "Need more ingredients"}</h3>
+        <p>
+          {minReached
+            ? "Generate a recipe from your list"
+            : "Add more to get a personal recipe"}
+        </p>
+      </div>
+      <button
+        className="get-recipe-btn"
+        disabled={!minReached}
+        onClick={toggleRecipe}
+      >
+        Get a recipe
+      </button>
+    </div>
+  );
+}
 
 export default function Main() {
   const minIngredientsCount = 3;
   const [ingredients, setIngredients] = React.useState([]);
+  const [recipeShown, setRecipeShown] = React.useState(false);
 
   function addIngredient(formData) {
-    const newIngredient = formData.get("ingredient");
-    setIngredients((prevIngredients) => {
-      if (prevIngredients.includes(newIngredient)) {
-        return prevIngredients;
-      }
-      return [...prevIngredients, newIngredient];
+    const newIngredient = formData.get("ingredient").trim();
+    if (!newIngredient) return;
+    setIngredients((prev) => {
+      const isDuplicate = prev.some(
+        (ing) => ing.toLowerCase() === newIngredient.toLowerCase()
+      );
+      return isDuplicate && newIngredient ? prev : [...prev, newIngredient];
     });
   }
 
-  const ingredientsListItems = ingredients.map((item) => (
-    <li key={item}>{item}</li>
-  ));
+  function toggleRecipeShown() {
+    setRecipeShown((prev) => !prev);
+  }
 
   return (
     <main>
@@ -36,34 +62,16 @@ export default function Main() {
       </form>
       <section>
         <h2>Ingredients on hand:</h2>
-        {ingredients.length > 0 ? (
-          <ul className="ingredients-list">{ingredientsListItems}</ul>
-        ) : (
-          <p className="no-ingredients-msg">
-            You haven't added any ingredients
-          </p>
+        <IngredientsList ingredientsData={ingredients} />
+
+        {ingredients.length > 0 && (
+          <RecipeCTA
+            minReached={ingredients.length >= minIngredientsCount}
+            toggleRecipe={toggleRecipeShown}
+          />
         )}
-
-        <div className="get-recipe-container">
-          {ingredients.length >= minIngredientsCount ? (
-            <div>
-              <h3>Ready for a recipe?</h3>
-              <p>Generate a recipe from your list of ingredients</p>
-            </div>
-          ) : (
-            <div>
-              <h3>Add at least {minIngredientsCount} to get a recipe</h3>
-            </div>
-          )}
-
-          <button
-            className="get-recipe-btn"
-            disabled={ingredients.length < minIngredientsCount}
-          >
-            Get a recipe
-          </button>
-        </div>
       </section>
+      {recipeShown && <Recipe />}
     </main>
   );
 }
