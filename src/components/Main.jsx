@@ -89,7 +89,7 @@ export default function Main() {
           />
         )}
       </section>
-      {recipe && <Recipe text={recipe} />}
+      {recipe && <Recipe responseFromAI={recipe} />}
     </main>
   );
 }

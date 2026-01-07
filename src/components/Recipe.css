@@ -1,0 +1,61 @@
+.recipe-card {
+  margin: 2rem auto;
+  max-width: 700px;
+  padding: 2rem;
+  background-color: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  color: var(--text-main);
+}
+
+.recipe-card h2 {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.recipe-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recipe-ingredients {
+  background-color: #f4f4f4;
+  padding: 1.5rem;
+  border-radius: 12px;
+  list-style: none;
+  margin-bottom: 2rem;
+  border: 1px solid #eee;
+}
+
+.recipe-ingredients li {
+  padding: 0.7rem 0;
+  border-top: 1px dashed #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipe-ingredients li:first-child {
+  border-top: none;
+}
+
+.recipe-instructions {
+  padding-left: 1.2rem;
+}
+
+.recipe-instructions li {
+  margin-bottom: 1.2rem;
+  padding-left: 0.5rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.recipe-instructions li::marker {
+  color: var(--accent-color);
+  font-weight: bold;
+}

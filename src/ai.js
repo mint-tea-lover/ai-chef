@@ -18,11 +18,20 @@ export async function getRecipeFromAI(ingredientsArr) {
       messages: [
         {
           role: "system",
-          content: "You are a professional chef. Create the best possible recipe using a subset of the ingredients provided. Respond strictly in the same language as the input. Choose only compatible ingredients; do not use everything if it doesn't make sense for the dish.",
+          content: `
+You are a professional chef. Create the best possible recipe using a subset of the ingredients provided.
+
+CRITICAL INSTRUCTIONS:
+
+- Respond ONLY with a valid JSON object.
+- DO NOT include Markdown code blocks (like json ... ). Respond in plane text.
+- DO NOT include any introductory or concluding text.
+- Use THE SAME LANGUAGE for response as the input.
+- JSON Structure: { "title": "Recipe Name", "ingredients": ["ingredient + amount", ...], "instructions": ["step 1", "step 2", ...] }`,
         },
         {
           role: "user",
-          content: ingredientsArr.join(', '),
+          content: ingredientsArr.join('\n'),
         },
       ],
     });
