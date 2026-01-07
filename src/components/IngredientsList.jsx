@@ -1,6 +1,17 @@
-export default function IngredientsList({ ingredientsData }) {
+import "./IngredientsList.css";
+
+export default function IngredientsList({ ingredientsData, onDelete }) {
   const ingredientsListItems = ingredientsData.map((item) => (
-    <li key={item}>{item}</li>
+    <li key={item}>
+      {item}
+      <button
+        className="remove-ingredient-btn"
+        aria-label={`Remove ${item}`}
+        onClick={() => onDelete(item)}
+      >
+        ×
+      </button>
+    </li>
   ));
 
   return (

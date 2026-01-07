@@ -41,6 +41,10 @@ export default function Main() {
     });
   }
 
+  function removeIngredient(ingredientName) {
+    setIngredients((prev) => prev.filter((ing) => ing != ingredientName));
+  }
+
   function toggleRecipeShown() {
     setRecipeShown((prev) => !prev);
   }
@@ -62,7 +66,10 @@ export default function Main() {
       </form>
       <section>
         <h2>Ingredients on hand:</h2>
-        <IngredientsList ingredientsData={ingredients} />
+        <IngredientsList
+          ingredientsData={ingredients}
+          onDelete={removeIngredient}
+        />
 
         {ingredients.length > 0 && (
           <RecipeCTA

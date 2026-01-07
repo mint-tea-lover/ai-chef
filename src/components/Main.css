@@ -31,33 +31,6 @@ h2 {
   margin-bottom: 1.2rem;
 }
 
-.no-ingredients-msg {
-  color: rgb(75, 75, 75);
-  margin-bottom: 1.2rem;
-}
-
-.ingredients-list {
-  list-style: none;
-  margin-bottom: 1.2rem;
-  margin-left: 1rem;
-  color: rgb(75, 75, 75);
-}
-
-.ingredients-list li {
-  display: flex;
-  align-items: center;
-  margin: 0.5rem 0;
-}
-
-.ingredients-list li::before {
-  content: "";
-  width: 0.3rem;
-  height: 0.3rem;
-  border-radius: 50%;
-  background: currentColor;
-  margin-right: 0.5rem;
-}
-
 .get-recipe-container {
   display: flex;
   gap: 1rem;
