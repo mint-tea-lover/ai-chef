@@ -2,33 +2,40 @@ import "./Main.css";
 import React from "react";
 import Recipe from "./Recipe";
 import IngredientsList from "./IngredientsList";
+import { getRecipeFromAI } from "../ai";
 
-function RecipeCTA({ minReached, toggleRecipe }) {
+function RecipeCTA({ minReached, toggleRecipe, isLoading }) {
   return (
-    <div className="get-recipe-container">
-      <div>
-        <h3>{minReached ? "Ready for a recipe?" : "Need more ingredients"}</h3>
-        <p>
-          {minReached
-            ? "Generate a recipe from your list"
-            : "Add more to get a personal recipe"}
-        </p>
+    <>
+      <div className="get-recipe-container">
+        <div>
+          <h3>
+            {minReached ? "Ready for a recipe?" : "Need more ingredients"}
+          </h3>
+          <p>
+            {minReached
+              ? "Generate a recipe from your list"
+              : "Add more to get a personal recipe"}
+          </p>
+        </div>
+        <button
+          className="get-recipe-btn"
+          disabled={!minReached || isLoading}
+          onClick={toggleRecipe}
+        >
+          Get a recipe
+        </button>
+        {isLoading && <p className="loading">Generating...</p>}
       </div>
-      <button
-        className="get-recipe-btn"
-        disabled={!minReached}
-        onClick={toggleRecipe}
-      >
-        Get a recipe
-      </button>
-    </div>
+    </>
   );
 }
 
 export default function Main() {
   const minIngredientsCount = 3;
   const [ingredients, setIngredients] = React.useState([]);
-  const [recipeShown, setRecipeShown] = React.useState(false);
+  const [recipe, setRecipe] = React.useState(""); // здесь храним текст рецепта
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
@@ -45,8 +52,11 @@ export default function Main() {
     setIngredients((prev) => prev.filter((ing) => ing != ingredientName));
   }
 
-  function toggleRecipeShown() {
-    setRecipeShown((prev) => !prev);
+  async function toggleRecipeShown() {
+    setIsLoading(true); // начинаем загрузку
+    const generatedRecipe = await getRecipeFromAI(ingredients);
+    setRecipe(generatedRecipe);
+    setIsLoading(false); // заканчиваем загрузку
   }
 
   return (
@@ -75,10 +85,11 @@ export default function Main() {
           <RecipeCTA
             minReached={ingredients.length >= minIngredientsCount}
             toggleRecipe={toggleRecipeShown}
+            isLoading={isLoading}
           />
         )}
       </section>
-      {recipeShown && <Recipe />}
+      {recipe && <Recipe text={recipe} />}
     </main>
   );
 }

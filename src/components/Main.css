@@ -39,7 +39,8 @@ h2 {
   padding: 1.5rem;
   border-radius: 0.5rem;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
 }
 
 .get-recipe-container p {
@@ -60,4 +61,11 @@ h2 {
 .get-recipe-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.loading {
+  position: absolute;
+  translate: 0 100%;
+  bottom: -0.5rem;
+  left: 0;
 }
