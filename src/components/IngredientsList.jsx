@@ -8,9 +8,7 @@ export default function IngredientsList({ ingredientsData, onDelete }) {
         className="remove-ingredient-btn"
         aria-label={`Remove ${item}`}
         onClick={() => onDelete(item)}
-      >
-        ×
-      </button>
+      ></button>
     </li>
   ));
 

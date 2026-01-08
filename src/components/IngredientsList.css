@@ -26,10 +26,10 @@
 }
 
 .remove-ingredient-btn {
-  border: none;
-  background: none;
-  color: rgb(227, 61, 61);
-  font-size: 1.6rem;
-  font-weight: 700;
+  width: 1.3rem;
+  height: 1.3rem;
   margin-left: 1rem;
+  background-color: var(--accent-color); /* Цвет иконки */
+  mask: url("icons/close.svg") no-repeat center;
+  -webkit-mask: url("icons/close.svg") no-repeat center;
 }
