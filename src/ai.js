@@ -27,7 +27,7 @@ CRITICAL INSTRUCTIONS:
 - DO NOT include Markdown code blocks (like json ... ). Respond in plane text.
 - DO NOT include any introductory or concluding text.
 - Use THE SAME LANGUAGE for response as the input.
-- JSON Structure: { "title": "Recipe Name", "ingredients": ["ingredient + amount", ...], "instructions": ["step 1", "step 2", ...] }`,
+- JSON Structure: { "title": "Recipe Name", "ingredients": ["ingredient - amount", ...], "instructions": ["step 1", "step 2", ...] }`,
         },
         {
           role: "user",

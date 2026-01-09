@@ -1,10 +1,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 :root {
-  --accent-color: #ff6b6b; /* Приятный коралловый для заголовков */
+  --accent-color: #ff6b6b;
+  --accent-hover: #e55b5b;
+  --white: #fefefe;
+
+  /* Светлая тема (по умолчанию) */
+  --bg-body: #fefefe;
+  --bg-header: #fefefe;
   --bg-card: #ffffff;
-  --text-main: #2d3436;
-  --text-muted: #636e72;
+  --bg-input: #fefefe;
+  --bg-secondary: #f0f0f0;
+  --bg-btn-main: #21252b;
+
+  --text-main: #2c303b;
+  --text-muted: #484b55;
+  --text-on-btn: #fefefe;
+
+  --shadow: rgba(0, 0, 0, 0.125);
+  --border-color: #e3e3e3;
+}
+
+[data-theme="dark"] {
+  --bg-body: #1a1a1c;
+  --bg-header: #1d1d1e;
+  --bg-card: #1e1e1e;
+  --bg-input: #333337;
+  --bg-secondary: #2d2d2d;
+  --bg-btn-main: #e2e3e4;
+
+  --text-main: #e0e0e0;
+  --text-muted: #c3c5c9;
+  --text-on-btn: #121212;
+
+  --shadow: rgba(0, 0, 0, 0.308);
+  --border-color: #333333;
 }
 
 * {
@@ -16,7 +46,9 @@
 
 body {
   font-family: Inter, Arial;
-  background-color: rgb(238, 238, 238);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 h2 {

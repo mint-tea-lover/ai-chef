@@ -1,10 +1,10 @@
 .recipe-card {
   margin: 2rem auto;
-  max-width: 700px;
+  max-width: 800px;
   padding: 2rem;
   background-color: var(--bg-card);
   border-radius: 20px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.05);
   color: var(--text-main);
 }
 
@@ -25,17 +25,16 @@
 }
 
 .recipe-ingredients {
-  background-color: #f4f4f4;
+  background-color: var(--bg-secondary);
   padding: 0.8rem 1.5rem;
   border-radius: 12px;
   list-style: none;
   margin-bottom: 2rem;
-  border: 1px solid #eee;
 }
 
 .recipe-ingredients li {
   padding: 0.7rem 0;
-  border-top: 1px dashed #ccc;
+  border-top: 2px dashed var(--border-color);
   display: flex;
   justify-content: space-between;
 }
