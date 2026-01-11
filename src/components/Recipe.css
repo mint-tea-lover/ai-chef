@@ -1,7 +1,7 @@
 .recipe-card {
   margin: 2rem auto;
   max-width: 800px;
-  padding: 2rem;
+  padding: clamp(1rem, 5vw, 3rem);
   background-color: var(--bg-card);
   border-radius: 20px;
   box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.05);

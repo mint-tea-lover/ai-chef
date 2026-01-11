@@ -1,12 +1,12 @@
 main {
-  padding: 2rem;
+  padding: clamp(1rem, 5vw, 3rem);
 }
 
 .ingredient-form {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .ingredient-inp,
@@ -19,7 +19,9 @@ main {
 }
 
 .ingredient-inp {
-  flex: 1 1 300px;
+  flex: 1;
+  min-width: 170px;
+  max-width: 700px;
   box-shadow: 0px 0px 5px 2px var(--shadow);
   background-color: var(--bg-input);
   color: var(--text-main);
