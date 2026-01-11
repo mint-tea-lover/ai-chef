@@ -6,6 +6,7 @@
   border-radius: 20px;
   box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.05);
   color: var(--text-main);
+  transition: background-color 0.3s ease;
 }
 
 .recipe-card h2 {
@@ -34,6 +35,7 @@
   border-radius: 12px;
   list-style: none;
   margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
 }
 
 .recipe-ingredients li {
@@ -41,6 +43,7 @@
   border-top: 2px dashed var(--border-color);
   display: flex;
   justify-content: space-between;
+  transition: border 0.3s ease;
 }
 
 .recipe-ingredients li:first-child {

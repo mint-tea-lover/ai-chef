@@ -12,6 +12,7 @@
   background-color: var(--bg-header);
   box-shadow: 0px 2px 7px var(--shadow);
   color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .header-logo {
