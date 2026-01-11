@@ -33,7 +33,10 @@ function RecipeCTA({ minReached, toggleRecipe, isLoading }) {
 
 export default function Main() {
   const minIngredientsCount = 3;
-  const [ingredients, setIngredients] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState(() => {
+    const saved = localStorage.getItem("ingredients"); // берем ингредиенты из localSorage, если есть
+    return saved ? JSON.parse(saved) : [];
+  });
   const [recipe, setRecipe] = React.useState(""); // здесь храним текст рецепта
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -48,6 +51,10 @@ export default function Main() {
       return isDuplicate && newIngredient ? prev : [...prev, newIngredient];
     });
   }
+
+  React.useEffect(() => {
+    localStorage.setItem("ingredients", JSON.stringify(ingredients));
+  }, [ingredients]); // сохраняем массив ingredients в localSorage при любом изменении
 
   function removeIngredient(ingredientName) {
     setIngredients((prev) => prev.filter((ing) => ing != ingredientName));
