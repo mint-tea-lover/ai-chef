@@ -33,6 +33,6 @@
   height: 1.3rem;
   margin-left: 1rem;
   background-color: var(--accent-color); /* Цвет иконки */
-  mask: url("icons/close.svg") no-repeat center;
-  -webkit-mask: url("icons/close.svg") no-repeat center;
+  mask: url("/icons/close.svg") no-repeat center;
+  -webkit-mask: url("/icons/close.svg") no-repeat center;
 }
