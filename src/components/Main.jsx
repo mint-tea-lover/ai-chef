@@ -36,6 +36,7 @@ export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
   const [recipe, setRecipe] = React.useState(""); // здесь храним текст рецепта
   const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
@@ -54,9 +55,31 @@ export default function Main() {
 
   async function toggleRecipeShown() {
     setIsLoading(true); // начинаем загрузку
-    const generatedRecipe = await getRecipeFromAI(ingredients);
-    setRecipe(generatedRecipe);
-    setIsLoading(false); // заканчиваем загрузку
+    setError(null);
+    try {
+      const generatedRecipe = await getRecipeFromAI(ingredients);
+      setRecipe(generatedRecipe);
+    } catch (err) {
+      switch (err.message) {
+        case "MODEL_REJECTED":
+          setError(
+            "AI couldn't process your ingrediends. Change the list and try again."
+          );
+          break;
+        case "RATE_LIMIT":
+          setError("Too many requests. Wait a minute and try again.");
+          break;
+        case "BAD_REQUEST":
+          setError("Bad request.");
+          break;
+        default:
+          setError(
+            "Couldn't connect the AI assistant. Check your internet connection and try again."
+          );
+      }
+    } finally {
+      setIsLoading(false); // заканчиваем загрузку
+    }
   }
 
   return (
@@ -89,7 +112,10 @@ export default function Main() {
           />
         )}
       </section>
-      {recipe && <Recipe responseFromAI={recipe} />}
+      {/* Если ошибка - выводим ошибку */}
+      {error && <div className="error-message">{error}</div>}{" "}
+      {/* Рендерим рецепт только если ошибки нет */}
+      {!error && recipe && <Recipe responseFromAI={recipe} />}
     </main>
   );
 }

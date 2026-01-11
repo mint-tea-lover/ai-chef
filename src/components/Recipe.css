@@ -24,6 +24,10 @@
   gap: 10px;
 }
 
+.recipe-card p {
+  margin: 1rem 0;
+}
+
 .recipe-ingredients {
   background-color: var(--bg-secondary);
   padding: 0.8rem 1.5rem;
