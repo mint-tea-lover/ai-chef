@@ -31,10 +31,10 @@ export default function Recipe({ responseFromAI }) {
       <p>{recipe.description}</p>
       <h3>Ingredients:</h3>
       <ul className="recipe-ingredients">
-        {recipe.ingredients?.map((item) => {
+        {recipe.ingredients?.map((item, index) => {
           const [ingr, quantity] = item.split("-");
           return (
-            <li>
+            <li key={index}>
               <span>{ingr}</span>
               <span>{quantity}</span>
             </li>
@@ -43,8 +43,8 @@ export default function Recipe({ responseFromAI }) {
       </ul>
       <h3>Steps:</h3>
       <ol className="recipe-instructions">
-        {recipe.instructions?.map((step) => (
-          <li>{step}</li>
+        {recipe.instructions?.map((step, index) => (
+          <li key={index}>{step}</li>
         ))}
       </ol>
     </div>
