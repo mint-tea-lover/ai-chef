@@ -3,6 +3,7 @@ import React from "react";
 import Recipe from "./Recipe";
 import IngredientsList from "./IngredientsList";
 import { getRecipeFromAI } from "../ai";
+import PinnedRecipes from "./PinnedRecipes";
 
 function RecipeCTA({ minReached, toggleRecipe, isLoading }) {
   return (
@@ -40,6 +41,9 @@ export default function Main() {
   const [recipe, setRecipe] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [pinnedRecipes, setPinnedRecipes] = React.useState(
+    () => JSON.parse(localStorage.getItem("pinnedRecipes")) || []
+  );
 
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
@@ -52,12 +56,25 @@ export default function Main() {
     });
   }
 
+  // Синхронизация с LocalStorage
   React.useEffect(() => {
     localStorage.setItem("ingredients", JSON.stringify(ingredients));
-  }, [ingredients]); // сохраняем массив ingredients в localSorage при любом изменении
+  }, [ingredients]);
+
+  React.useEffect(() => {
+    localStorage.setItem("pinnedRecipes", JSON.stringify(pinnedRecipes));
+  }, [pinnedRecipes]);
 
   function removeIngredient(ingredientName) {
     setIngredients((prev) => prev.filter((ing) => ing != ingredientName));
+  }
+
+  function pinRecipe(recipe) {
+    setPinnedRecipes((prev) => [...prev, recipe]);
+  }
+
+  function unpinRecipe(index) {
+    setPinnedRecipes((prev) => prev.splice(index, 1));
   }
 
   async function toggleRecipeShown() {
@@ -122,10 +139,12 @@ export default function Main() {
           />
         )}
       </section>
-      {/* Если ошибка - выводим ошибку */}
       {error && <div className="error-message">{error}</div>}{" "}
-      {/* Рендерим рецепт только если ошибки нет */}
-      {!error && recipe && <Recipe recipeData={recipe} />}
+      {!error && recipe && (
+        <>
+          <Recipe recipeData={recipe} />
+        </>
+      )}
     </main>
   );
 }
