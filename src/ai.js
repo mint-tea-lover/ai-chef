@@ -33,8 +33,18 @@ CRITICAL INSTRUCTIONS:
       ],
     });
 
-    return chatCompletion.choices[0].message.content;
+    const rawContent = chatCompletion.choices[0].message.content;
+    const parsedRecipe = cleanAndParseJSON(rawContent);
+
+    if (!parsedRecipe) {
+      throw new Error("PARSE_ERROR");
+    }
+
+    return parsedRecipe; // Возвращаем объект
+
   } catch (err) {
+    if (err.message === "PARSE_ERROR") throw err;
+
     console.error("Detailed API Error:", err);
 
     // Извлекаем статус-код (он может быть в err.statusCode или внутри err.message)
@@ -54,5 +64,15 @@ CRITICAL INSTRUCTIONS:
 
     // Если ничего не подошло, значит проблема с сетью
     throw new Error("NETWORK_ERROR");
+  }
+}
+
+function cleanAndParseJSON(rawResponse) {
+  try {
+    const jsonMatch = rawResponse.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) return null;
+    return JSON.parse(jsonMatch[0]);
+  } catch (error) {
+    return null;
   }
 }

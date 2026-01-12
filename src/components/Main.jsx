@@ -37,7 +37,7 @@ export default function Main() {
     const saved = localStorage.getItem("ingredients"); // берем ингредиенты из localSorage, если есть
     return saved ? JSON.parse(saved) : [];
   });
-  const [recipe, setRecipe] = React.useState(""); // здесь храним текст рецепта
+  const [recipe, setRecipe] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
@@ -64,10 +64,13 @@ export default function Main() {
     setIsLoading(true); // начинаем загрузку
     setError(null);
     try {
-      const generatedRecipe = await getRecipeFromAI(ingredients);
-      setRecipe(generatedRecipe);
+      const recipeObject = await getRecipeFromAI(ingredients);
+      setRecipe(recipeObject);
     } catch (err) {
       switch (err.message) {
+        case "PARSE_ERROR":
+          setError("AI returned a broken recipe. Please try again.");
+          break;
         case "MODEL_REJECTED":
           setError(
             "AI couldn't process your ingrediends. Change the list and try again."
@@ -122,7 +125,7 @@ export default function Main() {
       {/* Если ошибка - выводим ошибку */}
       {error && <div className="error-message">{error}</div>}{" "}
       {/* Рендерим рецепт только если ошибки нет */}
-      {!error && recipe && <Recipe responseFromAI={recipe} />}
+      {!error && recipe && <Recipe recipeData={recipe} />}
     </main>
   );
 }
