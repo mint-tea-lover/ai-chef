@@ -12,8 +12,9 @@
   --bg-input: #fefefe;
   --bg-secondary: #f0f0f0;
   --bg-btn-main: #21252b;
+  --bg-pinned: #88898f;
 
-  --text-main: #2c303b;
+  --text-main: #343949;
   --text-muted: #484b55;
   --text-on-btn: #fefefe;
 
@@ -28,6 +29,7 @@
   --bg-input: #333337;
   --bg-secondary: #2d2d2d;
   --bg-btn-main: #e2e3e4;
+  --bg-pinned: #55565a;
 
   --text-main: #e0e0e0;
   --text-muted: #c3c5c9;

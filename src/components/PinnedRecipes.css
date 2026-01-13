@@ -1,0 +1,29 @@
+.pinned-recipes h3 {
+  margin: 1rem 0 1rem 1rem;
+}
+
+.pinned-recipes ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pinned-recipes li {
+  background-color: var(--bg-pinned);
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 0 5px;
+}
+
+.unpin-recipe-btn,
+.see-recipe-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0.7rem;
+  color: var(--white);
+}
+
+.pinned-recipes li:hover {
+  filter: brightness(0.9);
+}

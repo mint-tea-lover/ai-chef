@@ -67,9 +67,9 @@
 }
 
 .pin-btn {
-  color: rgb(157, 157, 157);
+  color: var(--bg-pinned);
   background-color: transparent;
-  outline: 2px solid var(--border-color);
+  outline: 2px solid var(--bg-pinned);
   outline-offset: -2px;
 
   border: none;

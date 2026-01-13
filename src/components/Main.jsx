@@ -124,6 +124,13 @@ export default function Main() {
           />
         )}
       </section>
+      <PinnedRecipes
+        recipesList={pinnedRecipes}
+        onSelect={(id) => {
+          console.log(id);
+        }}
+        onRemove={unpinRecipe}
+      />
       {error && <div className="error-message">{error}</div>}{" "}
       {!error && recipe && (
         <Recipe
