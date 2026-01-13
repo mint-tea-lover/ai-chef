@@ -16,6 +16,11 @@
   padding: 0 5px;
 }
 
+.pinned-recipes .active {
+  outline: var(--accent-color) 2px solid;
+  outline-offset: -2px;
+}
+
 .unpin-recipe-btn,
 .see-recipe-btn {
   background-color: transparent;

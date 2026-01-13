@@ -127,9 +127,11 @@ export default function Main() {
       <PinnedRecipes
         recipesList={pinnedRecipes}
         onSelect={(id) => {
-          console.log(id);
+          const selectedRecipe = pinnedRecipes.find((r) => r.id === id);
+          if (selectedRecipe) setRecipe(selectedRecipe);
         }}
         onRemove={unpinRecipe}
+        activeRecipeId={recipe?.id}
       />
       {error && <div className="error-message">{error}</div>}{" "}
       {!error && recipe && (

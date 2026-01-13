@@ -1,6 +1,11 @@
 import "./PinnedRecipes.css";
 
-export default function PinnedRecipes({ recipesList, onSelect, onRemove }) {
+export default function PinnedRecipes({
+  recipesList,
+  onSelect,
+  onRemove,
+  activeRecipeId,
+}) {
   if (recipesList.length === 0) return null;
 
   return (
@@ -8,7 +13,10 @@ export default function PinnedRecipes({ recipesList, onSelect, onRemove }) {
       <h3>Pinned Recipes</h3>
       <ul>
         {recipesList.map((recipe) => (
-          <li key={recipe.id}>
+          <li
+            key={recipe.id}
+            className={recipe.id === activeRecipeId ? "active" : ""}
+          >
             <button
               className="see-recipe-btn"
               aria-label={`See recipe ${recipe.title}`}
