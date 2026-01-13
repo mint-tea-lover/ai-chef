@@ -65,3 +65,31 @@
   color: var(--accent-color);
   font-weight: bold;
 }
+
+.pin-btn {
+  color: rgb(157, 157, 157);
+  background-color: transparent;
+  outline: 2px solid var(--border-color);
+  outline-offset: -2px;
+
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pin-btn svg {
+  display: block;
+  transform: rotate(35deg);
+  transition: transform 0.3s ease;
+}
+
+.pin-btn.active {
+  color: var(--white);
+  background-color: var(--accent-color);
+  outline: none;
+}
+
+.pin-btn.active svg {
+  transform: rotate(0deg);
+}

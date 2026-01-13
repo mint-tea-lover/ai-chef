@@ -55,12 +55,14 @@ export default function Main() {
     setPinnedRecipes((prev) => prev.filter((r) => r.id !== id));
   }
 
+  const isCurrentRecipePinned = pinnedRecipes.some((r) => r.id === recipe?.id);
+
   // Генерация рецепта
-  async function getRecipe() {
+  async function generateRecipe() {
     setIsLoading(true); // начинаем загрузку
     setError(null);
     try {
-      const recipeObject = await getRecipeFromAI(ingredients);
+      let recipeObject = await getRecipeFromAI(ingredients);
       recipeObject = {
         ...recipeObject,
         id: crypto.randomUUID(), // добавляем уникальный id
@@ -117,16 +119,19 @@ export default function Main() {
         {ingredients.length > 0 && (
           <RecipeCTA
             minReached={ingredients.length >= minIngredientsCount}
-            toggleRecipe={getRecipe}
+            toggleRecipe={generateRecipe}
             isLoading={isLoading}
           />
         )}
       </section>
       {error && <div className="error-message">{error}</div>}{" "}
       {!error && recipe && (
-        <>
-          <Recipe recipeData={recipe} />
-        </>
+        <Recipe
+          recipeData={recipe}
+          onPin={pinRecipe}
+          onUnpin={unpinRecipe}
+          isPinned={isCurrentRecipePinned}
+        />
       )}
     </main>
   );
