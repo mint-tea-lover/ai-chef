@@ -2,35 +2,10 @@ import "./Main.css";
 import React from "react";
 import Recipe from "./Recipe";
 import IngredientsList from "./IngredientsList";
+import RecipeCTA from "./RecipeCTA";
+("./RecipeCTA");
 import { getRecipeFromAI } from "../ai";
 import PinnedRecipes from "./PinnedRecipes";
-
-function RecipeCTA({ minReached, toggleRecipe, isLoading }) {
-  return (
-    <>
-      <div className="get-recipe-container">
-        <div>
-          <h3>
-            {minReached ? "Ready for a recipe?" : "Need more ingredients"}
-          </h3>
-          <p>
-            {minReached
-              ? "Generate a recipe from your list"
-              : "Add more to get a personal recipe"}
-          </p>
-        </div>
-        <button
-          className="get-recipe-btn"
-          disabled={!minReached || isLoading}
-          onClick={toggleRecipe}
-        >
-          Get a recipe
-        </button>
-        {isLoading && <p className="loading">Generating...</p>}
-      </div>
-    </>
-  );
-}
 
 export default function Main() {
   const minIngredientsCount = 3;
@@ -45,6 +20,16 @@ export default function Main() {
     () => JSON.parse(localStorage.getItem("pinnedRecipes")) || []
   );
 
+  // Синхронизация с LocalStorage
+  React.useEffect(() => {
+    localStorage.setItem("ingredients", JSON.stringify(ingredients));
+  }, [ingredients]);
+
+  React.useEffect(() => {
+    localStorage.setItem("pinnedRecipes", JSON.stringify(pinnedRecipes));
+  }, [pinnedRecipes]);
+
+  // Работа с ингредиентами
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
     if (!newIngredient) return;
@@ -56,28 +41,17 @@ export default function Main() {
     });
   }
 
-  // Синхронизация с LocalStorage
-  React.useEffect(() => {
-    localStorage.setItem("ingredients", JSON.stringify(ingredients));
-  }, [ingredients]);
-
-  React.useEffect(() => {
-    localStorage.setItem("pinnedRecipes", JSON.stringify(pinnedRecipes));
-  }, [pinnedRecipes]);
-
   function removeIngredient(ingredientName) {
     setIngredients((prev) => prev.filter((ing) => ing != ingredientName));
   }
 
-  function pinRecipe(recipe) {
-    setPinnedRecipes((prev) => [...prev, recipe]);
-  }
+  // Работа с закрепами
+  function pinRecipe(newRecipe) {}
 
-  function unpinRecipe(index) {
-    setPinnedRecipes((prev) => prev.splice(index, 1));
-  }
+  function unpinRecipe(index) {}
 
-  async function toggleRecipeShown() {
+  // Генерация рецепта
+  async function getRecipe() {
     setIsLoading(true); // начинаем загрузку
     setError(null);
     try {
@@ -134,7 +108,7 @@ export default function Main() {
         {ingredients.length > 0 && (
           <RecipeCTA
             minReached={ingredients.length >= minIngredientsCount}
-            toggleRecipe={toggleRecipeShown}
+            toggleRecipe={getRecipe}
             isLoading={isLoading}
           />
         )}
