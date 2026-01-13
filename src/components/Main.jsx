@@ -46,9 +46,14 @@ export default function Main() {
   }
 
   // Работа с закрепами
-  function pinRecipe(newRecipe) {}
+  function pinRecipe(newRecipe) {
+    if (pinnedRecipes.some((r) => r.id === newRecipe.id)) return;
+    setPinnedRecipes((prev) => [...prev, newRecipe]);
+  }
 
-  function unpinRecipe(index) {}
+  function unpinRecipe(id) {
+    setPinnedRecipes((prev) => prev.filter((r) => r.id !== id));
+  }
 
   // Генерация рецепта
   async function getRecipe() {
@@ -56,6 +61,10 @@ export default function Main() {
     setError(null);
     try {
       const recipeObject = await getRecipeFromAI(ingredients);
+      recipeObject = {
+        ...recipeObject,
+        id: crypto.randomUUID(), // добавляем уникальный id
+      };
       setRecipe(recipeObject);
     } catch (err) {
       switch (err.message) {
